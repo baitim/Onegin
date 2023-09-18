@@ -1,7 +1,14 @@
 #ifndef PROCESS_CMD_H
 #define PROCESS_CMD_H
 
-struct cmd_input_data {
+#include <assert.h>
+#include <stdio.h>
+#include <stdlib.h>
+#include <string.h>
+
+#include "ANSI_colors.h"
+
+struct CMD_INPUT_DATA {
     bool is_sort_on;
     const char *name_sort;
     bool is_direction_sort_on;
@@ -9,29 +16,28 @@ struct cmd_input_data {
     bool is_help;
 };
 
-const int count_options = 3;
-
-struct cmd_line_option {
+struct CMD_LINE_OPTION {
     const char *name;
     const char *description;
     int n_args;
-    void (*callback)(const char* argv[], cmd_input_data* data);
+    void (*callback)(const char* argv[], CMD_INPUT_DATA* data);
 };
 
-void sort_direction_callback(const char* argv[], cmd_input_data* data);
+void sort_direction_callback(const char* argv[], CMD_INPUT_DATA* data);
 
-void sort_on_callback(const char* argv[], cmd_input_data* data);
+void sort_on_callback(const char* argv[], CMD_INPUT_DATA* data);
 
-void help_callback(const char* argv[], cmd_input_data* data);
+void help_callback(const char* argv[], CMD_INPUT_DATA* data);
 
-const cmd_line_option options[] = {
-    {"-direction_sort_on", "include direction of sort", 1, sort_direction_callback},
-    {"-sort_on", "include sort", 1, sort_on_callback},
-    {"--help", "help", 0, help_callback}
+const CMD_LINE_OPTION options[] = {
+    {"--direction_sort_on", "Choose direction of sort.",    1, sort_direction_callback},
+    {"--sort_on",           "Choose sort.",                 1, sort_on_callback},
+    {"--help",              "Dispay help.",                 0, help_callback}
 };
+const int COUNT_OPTIONS = sizeof(options) / sizeof(CMD_LINE_OPTION);
 
 void print_help();
 
-void input_cmd(int argc, const char *argv[], cmd_input_data *cmd_data);
+void input_cmd(int argc, const char *argv[], CMD_INPUT_DATA *cmd_data);
 
 #endif //PROCESS_CMD_H

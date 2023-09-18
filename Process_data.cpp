@@ -30,8 +30,7 @@ void sort(CMD_INPUT_DATA cmd_data, DATA data)
     }
 
     printf(ANSI_LIGHT_BLUE "Sorted by " ANSI_LIGHT_GREEN "%s" ANSI_LIGHT_BLUE " with " ANSI_LIGHT_YELLOW
-               "%s" ANSI_LIGHT_BLUE " direction\n" ANSI_DEFAULT_COLOR, type_sort,
-               dir_sort);
+               "%s" ANSI_LIGHT_BLUE " direction\n" ANSI_DEFAULT_COLOR, type_sort, dir_sort);
 	print_data(data);
     write_data(data);
 }
@@ -66,7 +65,7 @@ void partition(char **pointers, int *i, int *j, int (*comp)(char *, char *))
 {
     char *x = pointers[(*i + *j) / 2];
     char *mid = (char *)calloc(strlen(x), sizeof(char));
-    for (int k = 0; k < strlen(x); k++)
+    for (int k = 0; k < (int)strlen(x); k++)
         mid[k] = x[k];
 
     while (*i < *j) {

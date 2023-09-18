@@ -11,14 +11,14 @@ int main(int argc, const char *argv[])
 {
     printf(ANSI_LIGHT_BLUE "# (c) BAIDIUSENOV TIMUR, 2023\n\n" ANSI_DEFAULT_COLOR);
 
-    cmd_input_data cmd_data = { false, nullptr, false, nullptr, false };
+    CMD_INPUT_DATA cmd_data = { false, nullptr, false, nullptr, false };
     input_cmd(argc, argv, &cmd_data);
 
     if (cmd_data.is_help)
         print_help();
 
-    Data data = {};
-    input_data(&data);
+    DATA data = {};
+    create_data(&data);
 
     print_data(data);
 

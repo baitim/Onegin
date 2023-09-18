@@ -7,6 +7,8 @@
 #include <stdio.h>
 #include <string.h>
 
-void print_data(Data data);
+void print_data(DATA data);
+
+void write_data(DATA data);
 
 #endif // OUTPUT_H
