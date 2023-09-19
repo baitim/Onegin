@@ -1,10 +1,10 @@
 #include "Input.h"
 
-void input_data(Data *data)
+void create_data(DATA *data)
 {
-    FILE *stream = fopen("Text.txt", "r");
+    FILE *stream = fopen("Input_text.txt", "r");
 
-    data->size_file = fsize("Text.txt") + 1;
+    data->size_file = (int)fsize("Input_text.txt") + 1;
     data->text = (char *) calloc(data->size_file, sizeof(char));
     assert(data->text);
     get_data(*data, stream);
@@ -24,14 +24,14 @@ off_t fsize(const char *filename) {
     return -1;
 }
 
-void get_data(Data data, FILE *stream)
+void get_data(DATA data, FILE *stream)
 {
     assert(data.text);
     assert(stream);
 
-    const int SIZE = 1;
+    const int size = 1;
 
-    fread(data.text, data.size_file, SIZE, stream);
+    fread(data.text, data.size_file, size, stream);
 
     data.text[data.size_file - 1] = '\0';
 }
@@ -52,7 +52,7 @@ int count_pointers(const char *text)
     return count;
 }
 
-void write_pointers(Data data)
+void write_pointers(DATA data)
 {
     assert(data.pointers);
     assert(data.text);

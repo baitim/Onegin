@@ -1,13 +1,7 @@
 #include "Output.h"
 #include "Process_cmd.h"
 
-void print_help()
-{
-        for (int i = 0; i < count_options; i++)
-                printf(ANSI_LIGHT_GREEN "%s\t\t%s\n" ANSI_DEFAULT_COLOR, options[i].name, options[i].description);
-}
-
-void print_data(Data data)
+void print_data(DATA data)
 {
 	printf(ANSI_LIGHT_BLUE "TEXT: \n" ANSI_DEFAULT_COLOR);
 	
@@ -17,4 +11,14 @@ void print_data(Data data)
 		puts(data.pointers[i]);
 
 	printf(ANSI_DEFAULT_COLOR);
+}
+
+void write_data(DATA data)
+{
+	FILE *stream = fopen("Output_text.txt", "w");
+
+	for (int i = 0; i < data.lines_count; i++) {
+ 		fwrite(data.pointers[i], sizeof(data.pointers[i][0]), strlen(data.pointers[i]), stream);
+		fwrite("\n", 1, 1, stream);
+	}
 }

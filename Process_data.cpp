@@ -30,8 +30,7 @@ void sort(CMD_INPUT_DATA cmd_data, DATA data)
     }
 
     printf(ANSI_LIGHT_BLUE "Sorted by " ANSI_LIGHT_GREEN "%s" ANSI_LIGHT_BLUE " with " ANSI_LIGHT_YELLOW
-               "%s" ANSI_LIGHT_BLUE " direction\n" ANSI_DEFAULT_COLOR, type_sort,
-               dir_sort);
+               "%s" ANSI_LIGHT_BLUE " direction\n" ANSI_DEFAULT_COLOR, type_sort, dir_sort);
 	print_data(data);
     write_data(data);
 }
@@ -49,24 +48,24 @@ void bubble_sort(DATA data, int (*comp)(char *, char *))
 
 void q_sort(char** pointers, int count, int size, int (*comp)(char *, char *))
 {
+    if (count <= 1)
+        return ;
     int i = 0;
     int j = count - 1;
     partition(pointers, &i, &j, comp);
 
-    int mid  = (i + j) / 2;
+    if (0 < j + 1)
+        q_sort(&(pointers[0]), j + 1, 1, comp);
 
-    if (0 < mid)
-        q_sort(&(pointers[0]), mid, 1, comp);
-
-    if (mid + 1 < count - 1)
-        q_sort(&(pointers[mid + 1]), count - mid - 1, 1, comp);
+    if (i < count - 1)
+        q_sort(&(pointers[i]), count - i, 1, comp);
 }
 
 void partition(char **pointers, int *i, int *j, int (*comp)(char *, char *))
 {
     char *x = pointers[(*i + *j) / 2];
     char *mid = (char *)calloc(strlen(x), sizeof(char));
-    for (int k = 0; k < strlen(x); k++)
+    for (int k = 0; k < (int)strlen(x); k++)
         mid[k] = x[k];
 
     while (*i < *j) {
@@ -79,6 +78,7 @@ void partition(char **pointers, int *i, int *j, int (*comp)(char *, char *))
             (*j)--;
         }
     }
+    free(mid);
 }
 
 int forward_strcmp(char *s, char *t)
@@ -97,8 +97,8 @@ int reverse_strcmp(char *s, char *t)
     const int len_s = (int)strlen(s);
     const int len_t = (int)strlen(t);
 
-    int i = len_s;
-    int j = len_t;
+    int i = len_s - 1;
+    int j = len_t - 1;
 
     while (i >= 0 && j >= 0) {
         if (s[i] < t[j]) 
