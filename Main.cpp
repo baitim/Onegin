@@ -23,7 +23,7 @@ int main(int argc, const char *argv[])
     print_data(data);
 
     if (cmd_data.is_sort_on)
-		sort(cmd_data, data);
+        sort(cmd_data, data);
 
     printf(ANSI_LIGHT_BLUE "Bye\n" ANSI_DEFAULT_COLOR);
 
